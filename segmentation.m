@@ -23,7 +23,7 @@ resetBtn.Layout.Column = 3;
 ax1 = uiaxes(g);
 ax1.Layout.Row = 2;
 ax1.Layout.Column = 1;
-title(ax1, 'Converted Image', 'FontSize', 12, 'FontWeight', 'bold');
+title(ax1, 'Original Image', 'FontSize', 12, 'FontWeight', 'bold');
 axis(ax1, 'off');
 
 ax2 = uiaxes(g);
@@ -153,26 +153,26 @@ function update(~, ~, handles)
     % dimension which is the channels. (H, W, C).
     filteredImg = handles.originalImg .* uint8(repmat(mask, [1, 1, 3]));
 
-    displayImg = cs_image;
-    switch handles.dd.Value
-        case "YCbCr"
-            % Normalize to [0, 1] for display
-            displayImg = cs_image / 255;
-        case "LAB"
-            % Normalize LAB to [0, 1] all channels for display
-            displayImg(:,:,1) = cs_image(:,:,1) / 100;
-            displayImg(:,:,2) = (cs_image(:,:,2) + 127) / 254;
-            displayImg(:,:,3) = (cs_image(:,:,3) + 127) / 254;
-        case "XYZ"
-            % XYZ is already in [0, 1] (kind of)
-            displayImg = max(0, min(1, cs_image));
-        case "HSV"
-            % HSV is already in [0, 1]
-            displayImg = cs_image;
-    end
-
+    % displayImg = cs_image;
+    % switch handles.dd.Value
+    %     case "YCbCr"
+    %         % Normalize to [0, 1] for display
+    %         displayImg = cs_image / 255;
+    %     case "LAB"
+    %         % Normalize LAB to [0, 1] all channels for display
+    %         displayImg(:,:,1) = cs_image(:,:,1) / 100;
+    %         displayImg(:,:,2) = (cs_image(:,:,2) + 127) / 254;
+    %         displayImg(:,:,3) = (cs_image(:,:,3) + 127) / 254;
+    %     case "XYZ"
+    %         % XYZ is already in [0, 1] (kind of)
+    %         displayImg = max(0, min(1, cs_image));
+    %     case "HSV"
+    %         % HSV is already in [0, 1]
+    %         displayImg = cs_image;
+    % end
+    
     % Display images
-    imshow(displayImg, 'Parent', handles.ax(1));
+    imshow(handles.originalImg, 'Parent', handles.ax(1));
     imshow(mask, 'Parent', handles.ax(2));
     imshow(filteredImg, 'Parent', handles.ax(3));
 end
